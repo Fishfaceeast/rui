@@ -9,22 +9,39 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
+
+const fs = require('fs');
+
+const dirents = fs.readdirSync('./src/', { withFileTypes: true });
+const folderNames = dirents
+  .filter(dirent => dirent.isDirectory())
+  .map(dirent => dirent.name);
+
+const entryList = folderNames.map((folderName) => `./src/${folderName}/index.js`);
+const entryMap = {};
+folderNames.forEach((folderName) => {
+  entryMap[`example-${folderName}`] = `./src/${folderName}/index.js`
+});
+
+const HTMLPluginList = folderNames.map((folderName) => new HtmlWebpackPlugin({
+  title: 'Production',
+  template: `./src/${folderName}/example/index.html`,
+  filename: `./${folderName}.html`,
+}));
+
 module.exports = {
   entry: {
-    app: './src/index.js',
+    ...entryMap,
+    bundle: entryList,
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CaseSensitivePathsPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Production',
-      template: "./src/index.html",
-      filename: "./index.html"
-    }),
-    new ManifestPlugin()
-  ],
+    new CaseSensitivePathsPlugin()
+  ].
+   concat(HTMLPluginList).
+   concat(new ManifestPlugin()),
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
   },
   optimization: {
