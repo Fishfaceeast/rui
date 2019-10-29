@@ -2,7 +2,6 @@
  * Created by yuqian on 2019/5/16.
  */
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -18,28 +17,16 @@ const folderNames = dirents
   .map(dirent => dirent.name);
 
 const entryList = folderNames.map((folderName) => `./src/${folderName}/index.js`);
-const entryMap = {};
-folderNames.forEach((folderName) => {
-  entryMap[`example-${folderName}`] = `./src/${folderName}/index.js`
-});
-
-const HTMLPluginList = folderNames.map((folderName) => new HtmlWebpackPlugin({
-  title: 'Production',
-  template: `./src/${folderName}/example/index.html`,
-  filename: `./${folderName}.html`,
-}));
 
 module.exports = {
   entry: {
-    ...entryMap,
     bundle: entryList,
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CaseSensitivePathsPlugin()
-  ].
-   concat(HTMLPluginList).
-   concat(new ManifestPlugin()),
+    new CaseSensitivePathsPlugin(),
+    new ManifestPlugin()
+  ],
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist')
