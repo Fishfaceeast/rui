@@ -1,13 +1,13 @@
+
 import React from 'react';
 const { Component, PropTypes } = React;
-import Drawer from '../../src/drawer';
-import Overlay from "../../src/overlay";
+import Overlay from '../../src/overlay';
 
-export default class DrawerDemo extends Component {
+export default class OverlayDemo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpenOverlay: false
     };
   }
 
@@ -15,7 +15,7 @@ export default class DrawerDemo extends Component {
     this.setState((prevState) => {
       return {
         ...prevState,
-        isOpen: true
+        isOpenOverlay: true
       }
     })
   }
@@ -24,26 +24,25 @@ export default class DrawerDemo extends Component {
     this.setState((prevState) =>{
       return {
         ...prevState,
-        isOpen: false
+        isOpenOverlay: false
       }
     });
   }
   render() {
     const {
-      isOpen
+      isOpenOverlay
     } = this.state;
 
     return (
       <div>
         <div onClick={this.onOpen}>
-          open Drawer
+          open Overlay
         </div>
-        <Drawer
-          isOpen={isOpen}
+        <Overlay
+          show={isOpenOverlay}
+          autoLockScrolling={true}
           onClose={this.onClose}
-        >
-          <span>drawer's content</span>
-        </Drawer>
+        />
       </div>
 
     )

@@ -1,1 +1,0 @@
-alert('dragList index.js loaded')

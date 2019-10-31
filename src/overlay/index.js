@@ -1,9 +1,10 @@
 import React from 'react';
-const { Component, PropTypes } = React;
+const { Component } = React;
+import PropTypes from 'prop-types';
 import './index.scss';
 import classNames from 'classnames/bind';
 
-class Overlay extends Component {
+export default class Overlay extends Component {
   static propTypes = {
     /**
      * 是否显示

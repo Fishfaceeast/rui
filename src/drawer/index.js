@@ -1,20 +1,37 @@
 import './index.scss';
 
 import React from 'react';
+import Overlay from '../overlay';
+import classNames from 'classnames/bind';
 
-class Drawer extends React.Component {
+export default class Drawer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isShow: this.props.isOpen
-    };
   }
 
   render() {
+    const {
+      isOpen,
+      onClose
+    } = this.props;
+    const cls = classNames({
+      "drawer-wrapper": true,
+      "active": isOpen
+    });
     return (
-      <div className='drawer-wrapper'>
-        <div className='drawer-content'>{ this.props.children }</div>
-        <div className='icon-close'>X</div>
+      <div className={cls}>
+        <Overlay
+          show={isOpen}
+          autoLockScrolling={true}
+          onClose={onClose}
+        />
+        <div className='drawer-content'>
+          { this.props.children }
+          <div
+            className='icon-close'
+            onClick={onClose}
+          >X</div>
+        </div>
       </div>
     );
   }
