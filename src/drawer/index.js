@@ -12,11 +12,14 @@ export default class Drawer extends React.Component {
   render() {
     const {
       isOpen,
-      onClose
+      onClose,
+      size='default'
     } = this.props;
     const cls = classNames({
       "drawer-wrapper": true,
-      "active": isOpen
+      "active": isOpen,
+      "size-auto": size === 'auto',
+      "size-full": size === 'full'
     });
     return (
       <div className={cls}>
