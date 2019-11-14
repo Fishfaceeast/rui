@@ -12,25 +12,6 @@
     top: 12px;
     right: 12px;
   }
-  &.active {
-    visibility: visible;
-    .drawer-content {
-      right: 0;
-    }
-    &.size-full .drawer-content {
-      right: 0;
-    }
-    .overlay-wrapper {
-      visibility: visible;
-    }
-  }
-  &.size-auto .drawer-content {
-    width: auto;
-  }
-  &.size-full .drawer-content {
-    width: 100%;
-    right: -100%;
-  }
   .drawer-content {
     transition: all 0.5s ;
     box-sizing: border-box;
@@ -42,4 +23,57 @@
     height: 100%;
     z-index: 1000;
   }
+  &.top, &.bottom {
+    .drawer-content {
+      width: 100%;
+      height: 300px;
+    }
+  }
+  &.left .drawer-content {
+    left: -500px;
+    right: 0;
+  }
+  &.top .drawer-content {
+    top: -500px;
+    right: 0;
+  }
+  &.bottom .drawer-content {
+    bottom: -500px;
+    right: 0;
+  }
+  &.active {
+    .drawer-content, &.size-full .drawer-content {
+      right: 0;
+    }
+    &.left .drawer-content, &.left.size-full .drawer-content {
+      left: 0;
+      right: auto;
+    }
+    &.top .drawer-content, &.top.size-full .drawer-content {
+      top: 0;
+    }
+    &.bottom .drawer-content, &.bottom.size-full .drawer-content{
+      bottom: 0;
+    }
+  }
+  &.active {
+    visibility: visible;
+    .overlay-wrapper {
+      visibility: visible;
+    }
+  }
+  &.size-auto .drawer-content {
+    width: auto;
+  }
+  &.size-full .drawer-content {
+    width: 100%;
+    right: -100%;
+  }
+  &.top.size-auto, &.bottom.size-auto {
+    .drawer-content {
+      width: 100%;
+      height: auto;
+    }
+  }
+
 }
