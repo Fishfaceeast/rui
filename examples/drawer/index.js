@@ -8,12 +8,21 @@ const SIZES = [
   'full',
   'auto',
 ];
+
+const ANCHORS = [
+  'right',
+  'left',
+  'top',
+  'bottom',
+];
+
 export default class DrawerDemo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false,
-      size: 'default'
+      size: 'default',
+      anchor: 'right',
     };
   }
 
@@ -45,10 +54,21 @@ export default class DrawerDemo extends Component {
     ))
   };
 
+  onChangeAnchor = (e) => {
+    const value = e.target.value;
+    this.setState((prevState) => (
+      {
+        ...prevState,
+        anchor: value
+      }
+    ))
+  };
+
   render() {
     const {
       isOpen,
-      size
+      size,
+      anchor
     } = this.state;
 
     return (
@@ -71,6 +91,23 @@ export default class DrawerDemo extends Component {
             )
           })
         }
+        {
+          ANCHORS.map((anchorName) => {
+            return (
+              <p key={shortid.generate()}>
+                <label htmlFor={anchorName}>{anchorName}</label>
+                <input
+                  type="radio"
+                  name="anchor"
+                  id={anchorName}
+                  value={anchorName}
+                  checked={anchor === anchorName}
+                  onChange={this.onChangeAnchor}
+                />
+              </p>
+            )
+          })
+        }
         <div onClick={this.onOpen}>
           open Drawer
         </div>
@@ -78,9 +115,10 @@ export default class DrawerDemo extends Component {
           isOpen={isOpen}
           onClose={this.onClose}
           size={size}
+          anchor={anchor}
         >
           <p>drawer's content short</p>
-          <p>drawer's </p>
+          <p>from {anchor}</p>
         </Drawer>
       </div>
 
