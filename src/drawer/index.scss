@@ -14,20 +14,31 @@
   }
   &.active {
     visibility: visible;
+    .drawer-content {
+      right: 0;
+    }
+    &.size-full .drawer-content {
+      right: 0;
+    }
+    .overlay-wrapper {
+      visibility: visible;
+    }
   }
   &.size-auto .drawer-content {
     width: auto;
   }
   &.size-full .drawer-content {
     width: 100%;
+    right: -100%;
   }
   .drawer-content {
+    transition: all 0.5s ;
     box-sizing: border-box;
     padding: 24px 0;
     width: 500px;
     background-color: #fff;
     position: fixed;
-    right: 0;
+    right: -500px;
     height: 100%;
     z-index: 1000;
   }
